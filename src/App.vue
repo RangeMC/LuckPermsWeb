@@ -3,7 +3,6 @@
     <nav id="nav">
       <div>
         <router-link to="/" class="logo">
-<<<<<<< HEAD
           <img alt="RangeMC Logo" src="@/assets/logo.png">
           <span>RangeMC</span>
         </router-link>
@@ -14,21 +13,6 @@
               Плагин выполнен при поддержке
               <strong>BisectHosting</strong><br/>
               Используйте код <code>luck</code> для 25% скидки!
-=======
-          <img alt="LuckPerms logo" src="@/assets/logo.svg">
-          <span>LuckPerms</span>
-        </router-link>
-        <transition name="fade">
-          <div v-if="!config.selfHosted && !isSponsorRoute" class="nav-message">
-            <router-link to="/sponsor">
-              <hr />
-              <img src="@/assets/bisect.svg" alt="Bisect Hosting">
-              <span>
-              Proudly sponsored by
-              <strong>BisectHosting</strong><br/>
-              <span class="new">NEW:</span>
-              Special offer for LuckPerms users!
->>>>>>> dd56ed8e55a4775228a28d6850dc578a0f3f6e62
             </span>
             </router-link>
           </div>
@@ -150,36 +134,19 @@ export default {
       },
       {
         property: 'og:description',
-<<<<<<< HEAD
         content: 'Управление правами проекта RangeMC',
-=======
-        content: 'Website & online apps for the LuckPerms plugin.',
->>>>>>> dd56ed8e55a4775228a28d6850dc578a0f3f6e62
       },
       {
         property: 'og:type',
         content: 'product',
       },
       {
-<<<<<<< HEAD
         property: 'og:url',
         content: 'https://perms.rangemc.ovh',
       },
       {
         property: 'og:site_name',
         content: 'RangeMC',
-=======
-        property: 'og:image',
-        content: 'https://luckperms.net/logo.png',
-      },
-      {
-        property: 'og:url',
-        content: 'https://luckperms.net/',
-      },
-      {
-        property: 'og:site_name',
-        content: 'LuckPerms - A permissions plugin for Minecraft servers.',
->>>>>>> dd56ed8e55a4775228a28d6850dc578a0f3f6e62
       },
     ],
   },
