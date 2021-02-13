@@ -3,6 +3,7 @@
     <nav id="nav">
       <div>
         <router-link to="/" class="logo">
+<<<<<<< HEAD
           <img alt="RangeMC Logo" src="@/assets/logo.png">
           <span>RangeMC</span>
         </router-link>
@@ -13,9 +14,25 @@
               Плагин выполнен при поддержке
               <strong>BisectHosting</strong><br/>
               Используйте код <code>luck</code> для 25% скидки!
+=======
+          <img alt="LuckPerms logo" src="@/assets/logo.svg">
+          <span>LuckPerms</span>
+        </router-link>
+        <transition name="fade">
+          <div v-if="!config.selfHosted && !isSponsorRoute" class="nav-message">
+            <router-link to="/sponsor">
+              <hr />
+              <img src="@/assets/bisect.svg" alt="Bisect Hosting">
+              <span>
+              Proudly sponsored by
+              <strong>BisectHosting</strong><br/>
+              <span class="new">NEW:</span>
+              Special offer for LuckPerms users!
+>>>>>>> dd56ed8e55a4775228a28d6850dc578a0f3f6e62
             </span>
-          </a>
-        </div>
+            </router-link>
+          </div>
+        </transition>
       </div>
 
       <ul :class="{ active: menu, 'top-level': true }">
@@ -32,7 +49,7 @@
               Скачать
             </router-link>
           </li>
-          <li>
+          <li class="overlap">
             <router-link to="/wiki">
               <font-awesome icon="book" fixed-width />
               Вики
@@ -66,7 +83,7 @@
           </ul>
         </li>
         <template v-if="!config.selfHosted">
-          <li class="external">
+          <li class="external overlap">
             <a href="https://github.com/lucko/LuckPerms" target="_blank" class="github">
               <font-awesome :icon="['fab', 'github']" fixed-width />
               <span>Github</span>
@@ -76,12 +93,6 @@
             <a href="https://discord.gg/luckperms" target="_blank" class="discord">
               <font-awesome :icon="['fab', 'discord']" fixed-width />
               <span>Discord</span>
-            </a>
-          </li>
-          <li class="external">
-            <a href="https://patreon.com/luckdev" target="_blank" class="patreon">
-              <font-awesome :icon="['fab', 'patreon']" fixed-width />
-              <span>Patreon</span>
             </a>
           </li>
         </template>
@@ -113,14 +124,14 @@
         <ul>
           <li>
             <font-awesome icon="code-branch" fixed-width />
-            <a href="https://github.com/lucko" target="_blank">lucko</a>
-            /
             <a href="https://github.com/lucko/LuckPermsWeb" target="_blank">LuckPermsWeb</a>
+            @
+            <a :href="'https://github.com/lucko/LuckPermsWeb/commit/' + commitHash" target="_blank">{{ commitHash }}</a>
           </li>
           <li>
-            <a href="https://github.com/lucko/LuckPermsWeb/blob/master/LICENSE.txt" target="_blank">
-            Copyright © 2017-{{new Date().getFullYear().toString()}} LuckPerms contributors
-            </a>
+            <router-link to="/wiki/Credits">
+              Copyright © 2017-{{ new Date().getFullYear().toString() }} LuckPerms contributors
+            </router-link>
           </li>
         </ul>
       </div>
@@ -139,19 +150,36 @@ export default {
       },
       {
         property: 'og:description',
+<<<<<<< HEAD
         content: 'Управление правами проекта RangeMC',
+=======
+        content: 'Website & online apps for the LuckPerms plugin.',
+>>>>>>> dd56ed8e55a4775228a28d6850dc578a0f3f6e62
       },
       {
         property: 'og:type',
         content: 'product',
       },
       {
+<<<<<<< HEAD
         property: 'og:url',
         content: 'https://perms.rangemc.ovh',
       },
       {
         property: 'og:site_name',
         content: 'RangeMC',
+=======
+        property: 'og:image',
+        content: 'https://luckperms.net/logo.png',
+      },
+      {
+        property: 'og:url',
+        content: 'https://luckperms.net/',
+      },
+      {
+        property: 'og:site_name',
+        content: 'LuckPerms - A permissions plugin for Minecraft servers.',
+>>>>>>> dd56ed8e55a4775228a28d6850dc578a0f3f6e62
       },
     ],
   },
@@ -163,6 +191,9 @@ export default {
   },
 
   computed: {
+    commitHash() {
+      return process.env.VUE_APP_GIT_HASH;
+    },
     version() {
       return this.$store.getters.version;
     },
@@ -178,6 +209,9 @@ export default {
         'tree',
         'tree-home',
       ].includes(this.$route.name);
+    },
+    isSponsorRoute() {
+      return this.$route.name === 'sponsor';
     },
   },
 
@@ -316,7 +350,7 @@ body {
   .logo {
     height: 3rem;
     padding: .5rem;
-    font-size: 1.5rem;
+    font-size: 1.7rem;
     display: flex;
     align-items: center;
     color: #FFF;
@@ -335,13 +369,22 @@ body {
     }
   }
 
+  hr {
+    height: 2rem;
+    margin: 0 1rem 0 .5rem;
+    border-color: $brand-color;
+  }
+
   .nav-message {
-    margin-left: 1rem;
-    opacity: .5;
     max-width: 25rem;
     font-size: .9rem;
     line-height: 1.2;
-    transition: opacity .2s;
+    color: rgba(255,255,255,.66);
+    transition: all .2s;
+
+    .new {
+      color: $brand-color;
+    }
 
     img {
       height: 2rem;
@@ -349,21 +392,15 @@ body {
     }
 
     a {
-      padding: .25rem;
       color: inherit;
       text-decoration: none;
       display: flex;
       align-items: center;
       font-size: .8rem;
-
-      code {
-        border: 1px solid rgba(255,255,255,.2);
-        padding: 0 .25em;
-      }
     }
 
     &:hover {
-      opacity: .75;
+      color: rgba(255,255,255,.8);
     }
   }
 
@@ -408,6 +445,10 @@ body {
       display: flex;
       position: relative;
       flex-direction: column;
+
+      &.overlap {
+        z-index: 110;
+      }
 
       @include breakpoint($sm) {
         flex-direction: row;
@@ -521,10 +562,6 @@ body {
 
           &.discord {
             color: #7289DA;
-          }
-
-          &.patreon {
-            color: #f96854;
           }
 
           span {

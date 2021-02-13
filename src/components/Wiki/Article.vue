@@ -1,26 +1,36 @@
 <template>
     <div>
-      <h1>
+      <template v-if="article">
+        <h1>
+          <transition name="fade" mode="out-in">
+            <span :key="title">
+              {{ title }}
+            </span>
+          </transition>
+        </h1>
         <transition name="fade" mode="out-in">
-          <span :key="title">
-            {{ title }}
-          </span>
+          <component :is="article" />
         </transition>
-      </h1>
-      <transition name="fade" mode="out-in">
-        <component :is="article" />
-      </transition>
+      </template>
+      <template v-else>
+        <NotFound/>
+      </template>
     </div>
-
 </template>
 
 <script>
+import NotFound from '@/views/NotFound.vue';
+import 'highlight.js/styles/atom-one-dark.css';
+
 export default {
   metaInfo() {
     const { title } = this;
     return {
       title,
     };
+  },
+  components: {
+    NotFound,
   },
   data() {
     return {
@@ -42,8 +52,13 @@ export default {
   },
   methods: {
     async getArticle() {
-      // eslint-disable-next-line global-require,import/no-dynamic-require
-      this.article = require(`@/wiki/${this.route}.md`).default;
+      try {
+        // eslint-disable-next-line global-require,import/no-dynamic-require
+        this.article = require(`@/wiki/pages/${this.route}.md`).default;
+      } catch (e) {
+        this.article = null;
+        return;
+      }
 
       await this.$nextTick();
 
@@ -71,14 +86,12 @@ export default {
       });
 
       if (this.$route.hash) {
-        console.log(this.$route.hash);
         await this.scrollTo(this.$route.hash);
       }
     },
     async scrollTo(hash) {
       await this.$nextTick();
       const element = document.getElementById(hash.split('#')[1]);
-      console.log(element);
       if (!element) return;
       element.scrollIntoView({
         behavior: 'smooth',

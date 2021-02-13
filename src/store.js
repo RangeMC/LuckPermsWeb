@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
-import { compareVersions } from './util/version';
 
 const uuid = require('uuid/v4');
 const config = require('../config');
@@ -11,6 +10,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     version: null,
+    versionTimestamp: null,
+    changeLog: [],
     config: null,
     downloads: {
       bukkit: null,
@@ -19,6 +20,7 @@ export default new Vuex.Store({
       nukkit: null,
       sponge: null,
       velocity: null,
+      fabric: null,
     },
     extensions: {
       'extension-legacy-api': null,
@@ -52,6 +54,10 @@ export default new Vuex.Store({
   getters: {
     version: state => state.version,
 
+    versionTimestamp: state => state.versionTimestamp,
+
+    changeLog: state => state.changeLog,
+
     config: state => state.config,
 
     downloads: state => state.downloads,
@@ -84,11 +90,8 @@ export default new Vuex.Store({
 
     selectedNodeIds: state => state.editor.selectedNodes,
 
-    selectedNodes: (state, getters) => {
-      return getters.selectedNodeIds.map(nodeId => {
-        return getters.allNodes.find(({ id }) => nodeId === id);
-      });
-    },
+    // eslint-disable-next-line max-len
+    selectedNodes: (state, getters) => getters.selectedNodeIds.map(nodeId => getters.allNodes.find(({ id }) => nodeId === id)),
 
     potentialContexts: state => state.editor.potentialContexts,
 
@@ -101,18 +104,20 @@ export default new Vuex.Store({
     saveStatus: state => state.editor.save?.status,
 
     saveKey: state => state.editor.save?.key,
-
-    editorVersionStatus: (state) => {
-      if (!state.version || !state.editor.metaData?.pluginVersion) return null;
-
-      return compareVersions(state.version, state.editor.metaData.pluginVersion);
-    },
   },
 
 
   mutations: {
     setVersion: (state, version) => {
       state.version = version;
+    },
+
+    setVersionTimestamp: (state, versionTimestamp) => {
+      state.versionTimestamp = versionTimestamp;
+    },
+
+    setChangeLog: (state, changeLog) => {
+      state.changeLog = changeLog;
     },
 
     setConfig: (state, configData) => {
@@ -145,6 +150,7 @@ export default new Vuex.Store({
         tracks: [],
         deletedTracks: [],
         deletedGroups: [],
+        deletedUsers: [],
         knownPermissions: [],
         potentialContexts: [],
         currentSession: null,
@@ -196,20 +202,25 @@ export default new Vuex.Store({
       state.editor.tracks = value;
     },
 
-    deleteGroup(state, groupId) {
-      const sessionListIndex = state.editor.sessionList.findIndex(group => group === groupId);
+    deleteSession(state, sessionId) {
+      const { type } = state.editor.sessions[sessionId];
+      const sessionListIndex = state.editor.sessionList.findIndex(group => group === sessionId);
 
       state.editor.sessionList.splice(sessionListIndex, 1);
 
-      delete state.editor.sessions[groupId];
+      delete state.editor.sessions[sessionId];
 
-      state.editor.deletedGroups.push(groupId);
+      if (type === 'group') {
+        state.editor.deletedGroups.push(sessionId);
+      } else if (type === 'user') {
+        state.editor.deletedUsers.push(sessionId);
+      }
 
-      if (state.editor.currentSession === groupId) {
+      if (state.editor.currentSession === sessionId) {
         state.editor.currentSession = null;
       }
 
-      state.editor.nodes = state.editor.nodes.filter(node => node.sessionId !== groupId);
+      state.editor.nodes = state.editor.nodes.filter(node => node.sessionId !== sessionId);
     },
 
     setPotentialContexts(state, contexts) {
@@ -249,7 +260,7 @@ export default new Vuex.Store({
     addEditorNode(state, node) {
       const addingNode = node;
 
-      if (node.expiry instanceof Date) addingNode.expiry = node.expiry.getTime() / 1000;
+      if (node.expiry instanceof Date) addingNode.expiry = node.expiry.getTime();
 
       state.editor.nodes.push(addingNode);
 
@@ -293,56 +304,53 @@ export default new Vuex.Store({
       state.editor.sessions[node.sessionId].modified = true;
     },
 
-    updateNode(state, payload) {
-      const updatedNode = payload;
-
-      if (payload.type !== 'expiry') {
-        updatedNode.node[payload.type] = payload.data.value;
+    /* eslint-disable no-param-reassign */
+    updateNode(state, { node, type, data }) {
+      if (type === 'expiry') {
+        node[type] = data.value ? data.value.getTime() : null;
       } else {
-        updatedNode.node[payload.type] = payload.data.value ? payload.data.value.getTime() / 1000 : null;
+        if (type === 'sessionId') {
+          state.editor.sessions[node.sessionId].modified = true;
+        }
+        node[type] = data.value;
       }
 
-      updatedNode.node.modified = true;
-      state.editor.sessions[payload.node.sessionId].modified = true;
+      node.modified = true;
+      state.editor.sessions[node.sessionId].modified = true;
     },
 
     bulkUpdateNode(state, { node, payload }) {
-      const updateNode = node;
       const {
         value,
         expiry,
         replace,
-        contexts
+        contexts,
       } = payload;
 
       if (value !== null) {
-        updateNode.value = value;
+        node.value = value;
       }
 
       if (expiry) {
-        updateNode.expiry = expiry;
+        node.expiry = expiry;
       }
 
       if (replace) {
-        updateNode.context = contexts;
+        node.context = contexts;
       } else {
-        updateNode.context = {
-          ...node.contexts,
-          ...contexts
-        }
+        Vue.set(node, 'context', { ...node.context, ...contexts });
       }
 
-      updateNode.modified = true;
+      node.modified = true;
       state.editor.sessions[node.sessionId].modified = true;
     },
 
-    updateNodeContext(state, payload) {
-      const { node, data } = payload;
-
+    updateNodeContext(state, { node, data }) {
       node.context = data;
       node.modified = true;
       state.editor.sessions[node.sessionId].modified = true;
     },
+    /* eslint-enable no-param-reassign */
 
     addNodeToSession(state, node) {
       state.editor.nodes.push(node);
@@ -395,12 +403,10 @@ export default new Vuex.Store({
     setVerboseData(state, { data, status }) {
       state.verbose.status = status;
       if (!data) return;
-      state.verbose.data = data.data.map((node) => {
-        return {
-          ...node,
-          id: uuid(),
-        }
-      });
+      state.verbose.data = data.data.map(node => ({
+        ...node,
+        id: uuid(),
+      }));
       state.verbose.metadata = data.metadata;
       state.verbose.sessionId = data.sessionId;
     },
@@ -427,6 +433,8 @@ export default new Vuex.Store({
       try {
         const appData = await axios.get(`${config.api_url}/data/all`);
         commit('setVersion', appData.data.version);
+        commit('setVersionTimestamp', appData.data.versionTimestamp);
+        commit('setChangeLog', appData.data.changeLog);
         commit('setDownloads', appData.data.downloads);
         commit('setExtensions', appData.data.extensions);
         commit('setDiscordUserCount', appData.data.discordUserCount);
@@ -465,11 +473,13 @@ export default new Vuex.Store({
 
       data.permissionHolders.forEach((session) => {
         session.nodes.forEach((node) => {
+          const expiry = node.expiry ? node.expiry * 1000 : null;
+
           dispatch('addNodes', [{
             sessionId: session.id,
             key: node.key,
             value: node.value,
-            expiry: node.expiry,
+            expiry,
             context: node.context,
           }]);
         });
@@ -490,7 +500,7 @@ export default new Vuex.Store({
       nodes.forEach((node) => {
         const addingNode = node;
         addingNode.id = uuid();
-        addingNode.expiry = node.expiry || null;
+        addingNode.expiry = node.expiry;
         addingNode.context = node.context || {};
         addingNode.selected = false;
         commit('addEditorNode', addingNode);
@@ -587,10 +597,10 @@ export default new Vuex.Store({
     copyNodes({ getters, dispatch, commit }, sessions) {
       const { selectedNodes } = getters;
 
-      selectedNodes.forEach(node => {
+      selectedNodes.forEach((node) => {
         const nodeCopies = [];
 
-        sessions.forEach(sessionId => {
+        sessions.forEach((sessionId) => {
           nodeCopies.push({
             ...node,
             sessionId,
@@ -605,16 +615,17 @@ export default new Vuex.Store({
       commit('deselectAllSelectedNodes');
     },
 
-    moveNodes({ getters, commit }, session) {
+    // eslint-disable-next-line no-unused-vars
+    moveNodes({ state, getters, commit }, session) {
       const { selectedNodes } = getters;
 
-      selectedNodes.forEach(node => {
+      selectedNodes.forEach((node) => {
         commit('updateNode', {
           type: 'sessionId',
           data: {
             value: session,
           },
-          node
+          node,
         });
       });
 
@@ -625,7 +636,7 @@ export default new Vuex.Store({
     deleteNodes({ getters, commit }) {
       const selectedNodes = getters.selectedNodeIds.map(node => node);
 
-      selectedNodes.forEach(nodeId => {
+      selectedNodes.forEach((nodeId) => {
         commit('deleteNode', nodeId);
       });
 
@@ -635,7 +646,7 @@ export default new Vuex.Store({
     updateNodes({ getters, commit }, payload) {
       const { selectedNodes } = getters;
 
-      selectedNodes.forEach(node => {
+      selectedNodes.forEach((node) => {
         commit('bulkUpdateNode', { node, payload });
       });
     },
@@ -647,6 +658,7 @@ export default new Vuex.Store({
         changes: [],
         groupDeletions: state.editor.deletedGroups,
         trackDeletions: state.editor.deletedTracks,
+        userDeletions: state.editor.deletedUsers,
       };
 
       getters.modifiedSessions.forEach((modifiedSession) => {
@@ -658,7 +670,7 @@ export default new Vuex.Store({
         sessionNodes.forEach(node => nodes.push({
           key: node.key,
           value: node.value,
-          ...node.expiry && { expiry: node.expiry },
+          ...node.expiry && { expiry: Math.floor(node.expiry / 1000) },
           ...(Object.entries(node.context).length) && { context: node.context },
         }));
 

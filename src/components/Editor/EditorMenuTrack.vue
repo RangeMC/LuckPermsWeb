@@ -1,17 +1,28 @@
 <template>
   <div class="editor-menu-track">
-    <h3>
+    <h3 @click="toggle = !toggle">
       <span>
+<<<<<<< HEAD
         <button @click="toggle = !toggle" title="Показать/скрыть группы треков">
+=======
+        <button title="Show/hide track groups">
+>>>>>>> dd56ed8e55a4775228a28d6850dc578a0f3f6e62
           <font-awesome icon="caret-right" fixed-width :rotation="toggle ? 90 : null" />
         </button>
         <span>{{ track.id }}</span>
       </span>
       <span class="actions">
+<<<<<<< HEAD
         <button @click="editTrack" title="Изменить трек">
           <font-awesome icon="edit" fixed-width />
         </button>
         <button @click="deleteTrack" title="Удалить трек">
+=======
+        <button @click.stop="editTrack" title="Edit track">
+          <font-awesome icon="edit" fixed-width />
+        </button>
+        <button @click.stop="deleteTrack" title="Delete track">
+>>>>>>> dd56ed8e55a4775228a28d6850dc578a0f3f6e62
           <font-awesome icon="times" fixed-width />
         </button>
       </span>
@@ -72,6 +83,7 @@ export default {
   methods: {
     changeCurrentSession(sessionId) {
       this.$store.commit('setCurrentSession', sessionId);
+      this.$emit('clear-query');
     },
 
     editTrack() {
@@ -109,6 +121,7 @@ export default {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      user-select: none;
 
       &:hover {
         .actions {

@@ -26,7 +26,7 @@
             <tr v-if="source.context.length">
               <td>Содержимое</td>
               <td>
-                <code v-for="context in source.context">
+                <code v-for="context in source.context" v-bind:key="context">
                   {{ context.key }}: {{ context.value }}
                 </code>
               </td>
@@ -58,12 +58,17 @@
           </table>
         </div>
         <div class="col-2">
+<<<<<<< HEAD
           Логи
           <ul>
             <li v-for="trace in source.trace">
               <code>{{ trace }}</code>
             </li>
           </ul>
+=======
+          Trace
+          <pre class="code">{{ source.trace.join("\n") }}</pre>
+>>>>>>> dd56ed8e55a4775228a28d6850dc578a0f3f6e62
         </div>
       </div>
     </transition>
@@ -171,6 +176,8 @@ export default {
         }
 
         .col-2 {
+          display: flex;
+          flex-direction: column;
           flex: 2;
         }
 

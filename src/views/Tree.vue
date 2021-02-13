@@ -68,7 +68,11 @@
     </div>
     <div v-else class="tool-intro">
       <div>
+<<<<<<< HEAD
         <img alt="RangeMC logo" src="../assets/logo.png">
+=======
+        <img alt="LuckPerms logo" src="../assets/logo.svg">
+>>>>>>> dd56ed8e55a4775228a28d6850dc578a0f3f6e62
         <div class="text">
           <h1>RangeMC</h1>
           <p>Дерево разрешений</p>
@@ -113,9 +117,8 @@ export default {
 
       if (tree.data?.tree) {
         return tree.data.tree;
-      } else if (tree.data) {
-        return tree.data;
       }
+      return tree.data;
     },
     metaData() {
       return this.$store.state.tree?.metadata;
@@ -124,7 +127,6 @@ export default {
   },
   created() {
     if (this.treeData?.sessionId) return;
-
     updateSession(this.$route, 'getTreeData');
   },
   methods: {

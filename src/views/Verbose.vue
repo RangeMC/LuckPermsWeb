@@ -84,7 +84,11 @@
     </div>
     <div v-else class="tool-intro">
       <div>
+<<<<<<< HEAD
         <img alt="RangeMC logo" src="../assets/logo.png">
+=======
+        <img alt="LuckPerms logo" src="../assets/logo.svg">
+>>>>>>> dd56ed8e55a4775228a28d6850dc578a0f3f6e62
         <div class="text">
           <h1>RangeMC</h1>
           <p>Просмотр отладки</p>

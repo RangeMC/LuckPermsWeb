@@ -3,7 +3,11 @@
     <section class="hero">
       <div class="container">
         <div :class="{'logo': true, 'selfhosted': config.selfHosted }">
+<<<<<<< HEAD
           <img alt="RangeMC logo" src="../assets/logo.png">
+=======
+          <img alt="LuckPerms logo" src="../assets/logo.svg">
+>>>>>>> dd56ed8e55a4775228a28d6850dc578a0f3f6e62
           <div>
             <h1>RangeMC</h1>
             <p>Управление правами проекта.</p>
@@ -22,7 +26,7 @@
             </small>
           </router-link>
           <small>
-            Supports Bukkit/Spigot/Paper, BungeeCord, Sponge, Nukkit and Velocity servers
+            Supports Bukkit/Spigot/Paper, BungeeCord, Sponge, Fabric, Nukkit and Velocity servers
           </small>
         </div>
       </div>
@@ -93,6 +97,14 @@
             <small>Join {{ discordUserCount }} others to discuss the project and ask/answer
               questions</small>
           </a>
+          <router-link to="/sponsor" class="resource">
+            <span>
+              <font-awesome icon="server" />
+              Hosting Partner
+            </span>
+            <small>Find out how you can get a great deal on your server hosting and support
+              us at the same time</small>
+          </router-link>
           <a href="https://patreon.com/luckdev" class="resource">
             <span>
               <font-awesome :icon="['fab', 'patreon']" />

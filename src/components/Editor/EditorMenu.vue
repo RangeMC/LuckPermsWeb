@@ -3,7 +3,11 @@
     <div class="filter">
       <input
         type="text"
+<<<<<<< HEAD
         placeholder="Поиск"
+=======
+        placeholder="Filter groups/users"
+>>>>>>> dd56ed8e55a4775228a28d6850dc578a0f3f6e62
         v-model="filter"
         title="Фильтровать треки, группы и игроков."
       >
@@ -14,6 +18,7 @@
 
     <div class="sessions">
       <div class="tracks">
+<<<<<<< HEAD
         <h2>
           <button @click="toggle.tracks = !toggle.tracks" title="Показать/скрыть треки">
             <font-awesome icon="caret-right" fixed-width :rotation="toggle.tracks ? 90 : null" />
@@ -23,6 +28,17 @@
           <small>({{ filteredTracks.length }})</small>
         </span>
           <button @click="createTrack" title="Добавить трек">
+=======
+        <h2 @click="toggle.tracks = !toggle.tracks">
+          <button title="Show/hide tracks">
+            <font-awesome icon="caret-right" fixed-width :rotation="toggle.tracks ? 90 : null" />
+          </button>
+          <span>
+            Tracks
+            <small>({{ filteredTracks.length }})</small>
+          </span>
+          <button @click.stop="createTrack" title="Add a track">
+>>>>>>> dd56ed8e55a4775228a28d6850dc578a0f3f6e62
             <font-awesome icon="plus-circle" fixed-width />
           </button>
         </h2>
@@ -45,15 +61,24 @@
       </div>
 
       <div class="groups" v-if="filteredGroups.length">
+<<<<<<< HEAD
         <h2>
           <button @click="toggle.groups = !toggle.groups" title="Показать/скрыть группы">
+=======
+        <h2 @click="toggle.groups = !toggle.groups">
+          <button title="Show/hide groups">
+>>>>>>> dd56ed8e55a4775228a28d6850dc578a0f3f6e62
             <font-awesome icon="caret-right" fixed-width :rotation="toggle.groups ? 90 : null" />
           </button>
           <span>
           Группы
           <small>({{ filteredGroups.length }})</small>
         </span>
+<<<<<<< HEAD
           <button @click="createGroup" title="Добавить группу">
+=======
+          <button @click.stop="createGroup" title="Add a group">
+>>>>>>> dd56ed8e55a4775228a28d6850dc578a0f3f6e62
             <font-awesome icon="plus-circle" fixed-width />
           </button>
         </h2>
@@ -70,15 +95,23 @@
               :key="`group_${group.id}`"
               title="Изменить группу"
             >
-              <EditorMenuGroup :group="group" />
+              <EditorMenuGroup
+                :group="group"
+                @clear-query="emitClearQuery"
+              />
             </li>
           </ul>
         </transition>
       </div>
 
       <div class="users" v-if="filteredUsers.length">
+<<<<<<< HEAD
         <h2>
           <button @click="toggle.users = !toggle.users" title="Показать/скрыть игроков">
+=======
+        <h2 @click="toggle.users = !toggle.users">
+          <button title="Show/hide users">
+>>>>>>> dd56ed8e55a4775228a28d6850dc578a0f3f6e62
             <font-awesome icon="caret-right" fixed-width :rotation="toggle.users ? 90 : null" />
           </button>
           <span>
@@ -97,19 +130,23 @@
               :key="user.id"
               title="Изменить игрока"
             >
-              <img :src="`https://minotar.net/helm/${user.id}/100.png`">
-              {{user.displayName}}
+              <span class="username">
+                <img :src="`https://minotar.net/helm/${user.id}/100.png`">
+                {{user.displayName}}
+              </span>
+              <button @click="deleteUser(user.id)" v-if="canDeleteUsers" title="Delete user">
+                <font-awesome icon="times" fixed-width />
+              </button>
             </li>
           </ul>
         </transition>
       </div>
     </div>
-
-
   </nav>
 </template>
 
 <script>
+import { gte } from 'semver';
 import EditorMenuTrack from './EditorMenuTrack.vue';
 import EditorMenuGroup from './EditorMenuGroup.vue';
 
@@ -164,11 +201,18 @@ export default {
     modifiedSessions() {
       return this.$store.getters.modifiedSessions;
     },
+    canDeleteUsers() {
+      const supportedVersion = '5.1.105';
+      const { pluginVersion } = this.$store.getters.metaData;
+
+      return gte(pluginVersion, supportedVersion);
+    },
   },
 
   methods: {
     changeCurrentSession(sessionId) {
       this.$store.commit('setCurrentSession', sessionId);
+      this.emitClearQuery();
     },
     createTrack() {
       this.$store.commit('setModal', {
@@ -177,6 +221,17 @@ export default {
     },
     createGroup() {
       this.$store.commit('setModal', { type: 'createGroup', object: this.groups });
+    },
+    deleteUser(userId) {
+      this.$store.commit('setModal', {
+        type: 'deleteUser',
+        object: {
+          userId,
+        },
+      });
+    },
+    emitClearQuery() {
+      this.$emit('clear-query');
     },
   },
 
@@ -208,6 +263,7 @@ export default {
     bottom: 0;
     left: -20rem;
     transition: left .2s;
+    user-select: none;
 
     @include breakpoint($sm) {
       position: relative;
@@ -273,6 +329,7 @@ export default {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      cursor: pointer;
 
       small {
         opacity: .6;
@@ -419,6 +476,28 @@ export default {
         width: 1em;
         height: auto;
         margin-right: .5em;
+      }
+
+      li {
+        &:hover {
+          button {
+            opacity: 0.5;
+
+            &:hover {
+              opacity: 1;
+            }
+          }
+        }
+
+        button {
+          position: absolute;
+          right: 1rem;
+          background: transparent;
+          border: 0;
+          opacity: 0;
+          cursor: pointer;
+          color: white;
+        }
       }
     }
   }

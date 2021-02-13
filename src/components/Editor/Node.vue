@@ -41,10 +41,22 @@
       @click="expiry.edit = true"
       title="Выберите дату окончания"
     >
+<<<<<<< HEAD
       <code v-if="source.expiry">{{ source.expiry | moment('from') }}</code>
       <code v-else disabled>никогда</code>
 
       <button v-if="source.expiry" class="delete" @click.stop="deleteExpiry()" title="Убрать окончание">
+=======
+      <code v-if="source.expiry">{{ relativeExpiry }}</code>
+      <code v-else disabled>never</code>
+
+      <button
+        v-if="source.expiry"
+        class="delete"
+        @click.stop="deleteExpiry()"
+        title="Delete expiry"
+      >
+>>>>>>> dd56ed8e55a4775228a28d6850dc578a0f3f6e62
         <font-awesome icon="times" />
       </button>
     </div>
@@ -63,7 +75,9 @@
       title="Нажмите для редактирования контекста"
     >
       <span v-if="flattenedContexts.length">
-        <code v-for="entry in flattenedContexts"><small>{{ entry.key }}:</small> {{ entry.value }}</code>
+        <code v-for="entry in flattenedContexts" v-bind:key="entry">
+          <small>{{ entry.key }}:</small> {{ entry.value }}
+        </code>
       </span>
       <code v-else disabled>не указан</code>
     </div>
@@ -79,7 +93,7 @@
           <font-awesome icon="times" />
         </div>
         <ul>
-          <li v-for="entry in flattenedContexts">
+          <li v-for="entry in flattenedContexts" v-bind:key="entry">
             <span>{{ entry.key }}</span>
             <span>{{ entry.value }}</span>
             <button @click="removeContext(entry.key, entry.value)">
@@ -105,8 +119,11 @@
                 <ul class="context-list" v-if="context.keyFocus">
                   <li
                     v-for="pContext in potentialContexts"
+                    v-bind:key="pContext"
                     @click="context.key = pContext.key"
-                  >{{ pContext.key }}</li>
+                  >
+                    {{ pContext.key }}
+                  </li>
                 </ul>
               </transition>
             </div>
@@ -123,8 +140,11 @@
                 <ul class="context-list" v-if="context.valueFocus">
                   <li
                     v-for="value in potentialContextValues"
+                    v-bind:key="value"
                     @click="context.value = value"
-                  >{{ value }}</li>
+                  >
+                    {{ value }}
+                  </li>
                 </ul>
               </transition>
             </div>
@@ -142,6 +162,7 @@
 <script>
 import Datepicker from '@turbotailz/vuejs-datepicker';
 import vClickOutside from 'v-click-outside';
+import { relativeDate } from '@/util/date';
 
 export default {
   name: 'Node',
@@ -185,8 +206,10 @@ export default {
     },
     flattenedContexts() {
       const entries = [];
+      // eslint-disable-next-line no-restricted-syntax
       for (const [key, values] of Object.entries(this.source.context)) {
         if (Array.isArray(values)) {
+          // eslint-disable-next-line no-restricted-syntax
           for (const value of values) {
             entries.push({ key, value });
           }
@@ -201,9 +224,12 @@ export default {
     },
     potentialContextValues() {
       if (!this.context.key) return null;
-      const context = this.potentialContexts.find(pContext => pContext.key === this.context.key);
+      const context = this.potentialContexts.find(c => c.key === this.context.key);
       if (!context) return null;
       return context.values;
+    },
+    relativeExpiry() {
+      return relativeDate(this.source.expiry);
     },
   },
   methods: {
@@ -221,10 +247,13 @@ export default {
           if (this.source[type] !== data.value) {
             this.$store.commit('updateNode', { node: this.source, type, data });
           }
+          // eslint-disable-next-line no-param-reassign
           data.edit = false;
           break;
         case 'context':
           this.$store.commit('updateNodeContext', { node: this.source, data });
+          break;
+        default:
           break;
       }
     },
@@ -240,16 +269,19 @@ export default {
     addContext() {
       if (this.context.key === '' || this.context.value === '') return;
 
+      const key = this.context.key.trim();
+      const value = this.context.value.trim();
+
       const context = JSON.parse(JSON.stringify(this.source.context));
 
-      let values = context[this.context.key] || [];
+      let values = context[key] || [];
       if (!Array.isArray(values)) {
         values = [values];
       }
 
-      if (!values.find(value => value === this.context.value)) {
-        values.push(this.context.value);
-        context[this.context.key] = values;
+      if (!values.find(val => val === value)) {
+        values.push(value);
+        context[key] = values;
         this.updateNode('context', context);
       }
 
@@ -427,7 +459,6 @@ export default {
   z-index: 11;
   top: 50%;
   right: 3rem;
-  transform: translateY(-50%);
   box-shadow: 0 0 1em rgba(0,0,0,.2);
   cursor: initial;
   min-width: 25%;
@@ -536,7 +567,7 @@ export default {
 
   .context-list {
     position: absolute;
-    width: 100%;
+    min-width: 100%;
     top: 100%;
     margin: 0;
     padding: 0;
