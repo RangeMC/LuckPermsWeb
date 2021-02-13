@@ -1,17 +1,17 @@
 <template>
   <div class="delete-nodes-modal">
-    <h2>Delete {{ selectedNodes.length }} node{{ selectedNodes.length === 1 ? '' : 's' }}?</h2>
+    <h2>Удалить {{ selectedNodes.length }} узлов?</h2>
     <div class="col-2">
       <div>
         <p>
-          Are you sure you want to delete {{ selectedNodes.length }}
-          permission node{{ selectedNodes.length === 1 ? '' : 's' }}?
+          Вы действительно хотите удалить {{ selectedNodes.length }}
+          узлов?
         </p>
       </div>
       <div>
         <button @click="deleteNodes">
           <font-awesome icon="times" />
-          Delete
+          Удалить
         </button>
       </div>
     </div>

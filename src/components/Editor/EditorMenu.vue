@@ -3,9 +3,9 @@
     <div class="filter">
       <input
         type="text"
-        placeholder="Search"
+        placeholder="Поиск"
         v-model="filter"
-        title="Filter tracks, groups and users"
+        title="Фильтровать треки, группы и игроков."
       >
       <button class="delete" @click="filter = ''" v-if="filter !== ''" title="Clear filter">
         <font-awesome icon="times" fixed-width />
@@ -15,14 +15,14 @@
     <div class="sessions">
       <div class="tracks">
         <h2>
-          <button @click="toggle.tracks = !toggle.tracks" title="Show/hide tracks">
+          <button @click="toggle.tracks = !toggle.tracks" title="Показать/скрыть треки">
             <font-awesome icon="caret-right" fixed-width :rotation="toggle.tracks ? 90 : null" />
           </button>
           <span>
-          Tracks
+          Треки
           <small>({{ filteredTracks.length }})</small>
         </span>
-          <button @click="createTrack" title="Add a track">
+          <button @click="createTrack" title="Добавить трек">
             <font-awesome icon="plus-circle" fixed-width />
           </button>
         </h2>
@@ -46,14 +46,14 @@
 
       <div class="groups" v-if="filteredGroups.length">
         <h2>
-          <button @click="toggle.groups = !toggle.groups" title="Show/hide groups">
+          <button @click="toggle.groups = !toggle.groups" title="Показать/скрыть группы">
             <font-awesome icon="caret-right" fixed-width :rotation="toggle.groups ? 90 : null" />
           </button>
           <span>
-          Groups
+          Группы
           <small>({{ filteredGroups.length }})</small>
         </span>
-          <button @click="createGroup" title="Add a group">
+          <button @click="createGroup" title="Добавить группу">
             <font-awesome icon="plus-circle" fixed-width />
           </button>
         </h2>
@@ -68,7 +68,7 @@
                 'new': group.new
               }"
               :key="`group_${group.id}`"
-              title="Edit group"
+              title="Изменить группу"
             >
               <EditorMenuGroup :group="group" />
             </li>
@@ -78,11 +78,11 @@
 
       <div class="users" v-if="filteredUsers.length">
         <h2>
-          <button @click="toggle.users = !toggle.users" title="Show/hide users">
+          <button @click="toggle.users = !toggle.users" title="Показать/скрыть игроков">
             <font-awesome icon="caret-right" fixed-width :rotation="toggle.users ? 90 : null" />
           </button>
           <span>
-          Users
+          Игроки
           <small>({{ filteredUsers.length }})</small>
         </span>
 <!--      Add a fake button to force the flex layout-->
@@ -95,7 +95,7 @@
               @click="changeCurrentSession(user.id)"
               :class="{'active': currentSession && currentSession === user}"
               :key="user.id"
-              title="Edit user"
+              title="Изменить игрока"
             >
               <img :src="`https://minotar.net/helm/${user.id}/100.png`">
               {{user.displayName}}

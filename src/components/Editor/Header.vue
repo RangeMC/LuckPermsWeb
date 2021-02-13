@@ -1,7 +1,6 @@
 <template>
 <div class="editor-header">
   <h1>
-    <small>{{sessionData.type}}:</small>
     <code>{{session.displayName}}</code>
     <span v-if="sessionData.type == 'group' && session.displayName !== session.id">
       {{ session.id }}

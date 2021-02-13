@@ -1,21 +1,21 @@
 <template>
 <div class="delete-group">
   <h2>
-    Are you sure you want to delete group:
+    Вы действительно хотите удалить группу:
     <code>{{ props.groupId }}</code>
   </h2>
   <p class="lighter">
-    All {{ permissions.length }} of its permissions will be deleted.
-    This currently can not be undone.
+    Все {{ permissions.length }} узлов и прав будут удалены.
+    Данное действите необратимо.
   </p>
   <div>
     <button type="button" @click="deleteGroup">
       <font-awesome icon="check" />
-      Delete group
+      Удалить
     </button>
     <button type="button" class="red" @click="$emit('close')">
       <font-awesome icon="times" />
-      Cancel
+      Отменить
     </button>
   </div>
 </div>

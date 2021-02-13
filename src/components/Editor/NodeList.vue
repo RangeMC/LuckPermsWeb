@@ -1,13 +1,13 @@
 <template>
 <div class="node-list">
-  <h2>Permission nodes <span>({{ nodes.length }})</span></h2>
+  <h2>Узлы разрешений <span>({{ nodes.length }})</span></h2>
 
   <div class="node-list-header">
     <div class="sorting-tabs">
       <div
         :class="{ 'node-select-all': true, 'selected': allSelected }"
         @click="selectAll"
-        title="Select all nodes for mass operations"
+        title="Выбрать все узлы для массовой операции"
       >
         <span></span>
       </div>
@@ -16,9 +16,9 @@
         class="permission"
         :class="{'active': sort.method === 'key'}"
         @click="changeSort('key')"
-        title="Sort nodes by permission"
+        title="Сортировать узлы по правам"
       >
-        Permissions
+        Разрешение
         <font-awesome
           v-if="sort.method === 'key'"
           :class="{'reverse': !sort.desc}"
@@ -30,9 +30,9 @@
         class="value"
         :class="{'active': sort.method === 'value'}"
         @click="changeSort('value')"
-        title="Sort nodes by true/false"
+        title="Сортировать узлы по статусу"
       >
-        Value
+        Статус
         <font-awesome
           v-if="sort.method === 'value'"
           :class="{'reverse': !sort.desc}"
@@ -44,9 +44,9 @@
         class="expiry"
         :class="{'active': sort.method === 'expiry'}"
         @click="changeSort('expiry')"
-        title="Sort nodes by expiry"
+        title="Сортировать узлы по окончанию"
       >
-        Expiry
+        Окончание
         <font-awesome
           v-if="sort.method === 'expiry'"
           :class="{'reverse': !sort.desc}"
@@ -59,7 +59,7 @@
         @click="changeSort('contexts')"
         title="Sort nodes by contexts"
       >
-        Contexts
+        Контекст
         <font-awesome
           v-if="sort.method === 'contexts'"
           :class="{'reverse': !sort.desc}"

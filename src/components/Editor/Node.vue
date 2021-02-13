@@ -3,7 +3,7 @@
     <div
       :class="{ 'node-select': true, 'selected': isSelected }"
       @click="toggleNodeSelect()"
-      title="Select node for mass operations"
+      title="Выбрать узлы для массовой операции"
     >
       <span></span>
     </div>
@@ -12,7 +12,7 @@
       v-if="!permission.edit"
       class="permission"
       @click="permission.edit = true"
-      title="Click to edit the permission"
+      title="Нажмите для редактирования права"
     >
       <code>{{ source.key }}</code>
     </div>
@@ -30,7 +30,7 @@
     <div
       class="value"
       @click="toggleValue()"
-      title="Click to toggle true/false"
+      title="Нажмите для смены статуса"
     >
       <code :class="{'true': source.value}">{{ source.value }}</code>
     </div>
@@ -39,12 +39,12 @@
       v-if="!expiry.edit"
       class="expiry"
       @click="expiry.edit = true"
-      title="Click to choose an expiry"
+      title="Выберите дату окончания"
     >
       <code v-if="source.expiry">{{ source.expiry | moment('from') }}</code>
-      <code v-else disabled>never</code>
+      <code v-else disabled>никогда</code>
 
-      <button v-if="source.expiry" class="delete" @click.stop="deleteExpiry()" title="Delete expiry">
+      <button v-if="source.expiry" class="delete" @click.stop="deleteExpiry()" title="Убрать окончание">
         <font-awesome icon="times" />
       </button>
     </div>
@@ -60,12 +60,12 @@
     <div
       class="contexts"
       @click="context.ui = true"
-      title="Click to edit the contexts for this node"
+      title="Нажмите для редактирования контекста"
     >
       <span v-if="flattenedContexts.length">
         <code v-for="entry in flattenedContexts"><small>{{ entry.key }}:</small> {{ entry.value }}</code>
       </span>
-      <code v-else disabled>none</code>
+      <code v-else disabled>не указан</code>
     </div>
 
     <div class="delete" @click="deleteNode(source.id)">
@@ -74,7 +74,7 @@
 
     <transition name="fade">
       <div v-if="context.ui" class="context-ui" v-click-outside="closeContextUi">
-        <h4>Contexts <span>({{ flattenedContexts.length }})</span></h4>
+        <h4>Контексты <span>({{ flattenedContexts.length }})</span></h4>
         <div class="close" @click="closeContextUi">
           <font-awesome icon="times" />
         </div>
@@ -88,8 +88,8 @@
           </li>
           <li>
             <h5>
-              Add context:
-              <span class="lighter">(world, server, etc.)</span>
+              Добавить контекст:
+              <span class="lighter">(world, server, т.д.)</span>
             </h5>
           </li>
           <li>
@@ -132,7 +132,7 @@
         </ul>
         <button @click="addContext">
           <font-awesome icon="plus" />
-          Add context
+          Добавить
         </button>
       </div>
     </transition>

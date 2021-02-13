@@ -1,23 +1,22 @@
 <template>
 <div class="saved-changes">
-  <h2>Data was saved!</h2>
+  <h2>Данные были сохранены!</h2>
 
   <p>
-    Run this command on your server to apply the changes:
+    Выполните данную команду на сервере для применения настроек:
   </p>
 
   <div class="command">
-    <code class="apply-edits" @click="copyCommand" title="Copy to clipboard">
+    <code class="apply-edits" @click="copyCommand" title="Скопировать команду">
       /{{ metaData.commandAlias }} applyedits {{ props }}
     </code>
     <span class="command-copied" v-if="commandCopied">
-    Command copied to clipboard
+    Команда скопирована в буфер обмена
     </span>
   </div>
 
   <p>
-    <strong>Note:</strong> after running the <code>applyedits</code> command, you should generate
-    another editor URL to continue editing your server's permissions.
+    <strong>Примечание:</strong> после выполнения команды <code>applyedits</code>, вам необходимо будет сгенерировать новую ссылку для вебредактора, чтобы продолжить редактирование прав.
   </p>
 </div>
 </template>

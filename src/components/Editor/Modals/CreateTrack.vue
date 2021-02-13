@@ -1,15 +1,15 @@
 <template>
 <div class="add-track">
-  <h2>{{ isAddingTrack ? 'Create a' : 'Edit' }} track</h2>
+  <h2>{{ isAddingTrack ? 'Создать' : 'Изменить' }} трек</h2>
   <div class="row">
     <div class="col">
       <div class="form-group">
-        <label for="trackName">Track name</label>
+        <label for="trackName">Название</label>
         <input type="text" id="trackName" :value="track.id" @input="updateTrackName($event)">
       </div>
 
       <h3>Groups</h3>
-      <p>Tip: click and drag to re-order the track</p>
+      <p>Подсказка: щелкните и перетащите, чтобы изменить порядок трека</p>
       <draggable tag="ol" class="track-groups" v-model="track.groups">
         <li v-for="(group, index) in track.groups" :key="`track_group_${group}`">
           <span><span>{{ index+1 }}</span> {{ group }}</span>
@@ -20,7 +20,7 @@
       </draggable>
     </div>
     <div class="col">
-      <h3>Add groups</h3>
+      <h3>Добавить группы</h3>
       <ul class="available-groups">
         <li v-for="group in availableGroups" @click="track.groups.push(group.id)">
           <span>{{ group.id }}</span>
@@ -31,7 +31,7 @@
   </div>
   <button type="button" @click="addTrack" :disabled="buttonDisabled" class="save-button">
     <font-awesome icon="plus-circle" />
-    {{ isAddingTrack ? 'Add' : 'Save' }} track
+    {{ isAddingTrack ? 'Добавить' : 'Сохранить' }} трек
   </button>
 </div>
 </template>

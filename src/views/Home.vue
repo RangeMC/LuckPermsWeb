@@ -3,10 +3,10 @@
     <section class="hero">
       <div class="container">
         <div :class="{'logo': true, 'selfhosted': config.selfHosted }">
-          <img alt="LuckPerms logo" src="../assets/logo.png">
+          <img alt="RangeMC logo" src="../assets/logo.png">
           <div>
-            <h1>LuckPerms</h1>
-            <p>A permissions plugin for Minecraft servers.</p>
+            <h1>RangeMC</h1>
+            <p>Управление правами проекта.</p>
           </div>
         </div>
 
@@ -108,17 +108,17 @@
       <section class="resources">
         <div>
           <div class="tools">
-            <router-link to="/editor" alt="Web Editor">
+            <router-link to="/editor" alt="Управление">
               <font-awesome icon="edit" />
-              Web Editor
+              Управление
             </router-link>
-            <router-link to="/verbose" alt="Verbose Viewer">
+            <router-link to="/verbose" alt="Отладка">
               <font-awesome icon="comment-alt" />
-              Verbose Viewer
+              Отладка
             </router-link>
-            <router-link to="/treeview" alt="Tree Viewer">
+            <router-link to="/treeview" alt="Дерево">
               <font-awesome icon="sitemap" />
-              Tree Viewer
+              Дерево
             </router-link>
           </div>
         </div>
@@ -133,7 +133,7 @@ export default {
   name: 'Home',
 
   metaInfo: {
-    title: 'LuckPerms',
+    title: 'RangeMC',
     titleTemplate: null,
   },
 

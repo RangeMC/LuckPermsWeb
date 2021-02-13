@@ -2,11 +2,11 @@
   <main class="tree container">
     <div class="tree-viewer" v-if="metaData">
       <div class="col-1">
-        <h1>Permission Tree Viewer</h1>
+        <h1>Просмотр дерева разрешений</h1>
         <div class="meta-info">
           <table>
             <tr>
-              <td>Uploaded by</td>
+              <td>Инициатор</td>
               <td>
                 <avatar
                   v-if="metaData.uploader.name !== 'Console'"
@@ -19,7 +19,7 @@
             </tr>
             <tr>
               <td title="When the recording started">
-                Time
+                Время
               </td>
               <td>{{ metaData.time }}</td>
             </tr>
@@ -33,7 +33,7 @@
             </tr>
             <tr v-if="metaData.referenceUser">
               <td title="Reference user">
-                Reference user
+                Наследник
               </td>
               <td>
                 <avatar
@@ -48,11 +48,11 @@
         </div>
         <button @click="expandTree">
           <font-awesome icon="plus-square" />
-          Expand
+          Показать
         </button>
         <button @click="collapseTree">
           <font-awesome icon="minus-square" />
-          Collapse
+          Скрыть
         </button>
       </div>
       <div class="col-2">
@@ -68,26 +68,25 @@
     </div>
     <div v-else class="tool-intro">
       <div>
-        <img alt="LuckPerms logo" src="../assets/logo.png">
+        <img alt="RangeMC logo" src="../assets/logo.png">
         <div class="text">
-          <h1>LuckPerms</h1>
-          <p>Permission Tree Viewer</p>
+          <h1>RangeMC</h1>
+          <p>Дерево разрешений</p>
           <template v-if="!errors.load">
             <router-link to="/treeview/demo">
-              <button class="button demo-button">View Demo</button>
+              <button class="button demo-button">Посмотреть демо</button>
             </router-link>
-            <p>To generate a permission tree, do the following in game or from the console:</p>
+            <p>Чтобы сгенерировать дерево разрешений, используйте одну из команд:</p>
             <ul>
-              <li><code>/lp tree [scope] [player]</code></li>
-              <li>Follow the URL that is generated</li>
+              <li><code>/lp tree [обьём] [никнейм]</code></li>
             </ul>
           </template>
           <div v-else class="error">
-            <p>
-              <strong>There was an error loading the data.</strong>
-              Either the URL was copied wrong or the session has expired.
-            </p>
-            <p>Please generate another editor session with <code>/lp editor</code>.</p>
+              <p>
+                <strong>Произошла ошибка при загрузке данных плагина...</strong>
+                Ссылка неверна, либо её срок действия уже истёк.
+              </p>
+              <p>Пожалуйста, сгенерируйте новую через <code>/lp tree</code>.</p>
           </div>
         </div>
       </div>

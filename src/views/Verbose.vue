@@ -2,11 +2,13 @@
   <main class="verbose container">
     <div class="verbose-viewer" v-if="verboseData.status === 2">
       <div class="col-1">
-        <h1>Verbose viewer</h1>
+        <h1>Информация об отладке</h1>
         <div class="meta-info">
           <table>
             <tr>
-              <td>Uploaded by</td>
+              <td>
+                Инициатор
+              </td>
               <td>
                 <avatar
                   v-if="verboseData.metadata.uploader.name !== 'Console'"
@@ -19,42 +21,42 @@
               </td>
             </tr>
             <tr>
-              <td title="When the recording started">
-                Start time
+              <td title="Время начала записи логов">
+                Начало
               </td>
               <td>{{ verboseData.metadata.startTime }}</td>
             </tr>
             <tr>
-              <td title="When the recording ended">
-                End time
+              <td title="Время конца записи логов">
+                Конец
               </td>
               <td>{{ verboseData.metadata.endTime }}</td>
             </tr>
             <tr>
-              <td title="How long the plugin was recording for">
-                Duration
+              <td title="Длительность записи логов">
+                Длительность
               </td>
               <td>{{ verboseData.metadata.duration }}</td>
             </tr>
             <tr>
-              <td title="How many values matched and how many checks were made in total">
-                Count
+              <td title="Сколько проверок совпало и сколько было сделано всего">
+                Количество
               </td>
               <td>
                 {{ verboseData.metadata.count.matched }} / {{ verboseData.metadata.count.total }}
               </td>
             </tr>
             <tr>
-              <td title="The string used to filter the output">
-                Filter
+              <td title="Фильтр, используемый при отсеивании">
+                Фильтр
               </td>
               <td>
                 <code>{{ verboseData.metadata.filter }}</code>
               </td>
             </tr>
             <tr>
-              <td title="If the data was truncated (limited in size) when uploaded">
-                Truncated
+              <td title="Были ли сжаты (уменьшены в размере) данные во время загрузки">
+                Обрезанность
               </td>
               <td>
                 <code :class="verboseData.metadata.truncated ? 'true' : 'false'">
@@ -65,8 +67,8 @@
           </table>
         </div>
         <div class="filter">
-          Filter nodes by username or permission:
-          <input type="text" v-model="filter" placeholder="Enter filter here">
+          Фильтровать узлы по никнейму или правам:
+          <input type="text" v-model="filter" placeholder="Введите фильтр здесь">
         </div>
       </div>
       <div class="col-2">
@@ -82,31 +84,31 @@
     </div>
     <div v-else class="tool-intro">
       <div>
-        <img alt="LuckPerms logo" src="../assets/logo.png">
+        <img alt="RangeMC logo" src="../assets/logo.png">
         <div class="text">
-          <h1>LuckPerms</h1>
-          <p>Verbose Viewer</p>
+          <h1>RangeMC</h1>
+          <p>Просмотр отладки</p>
           <div v-if="verboseData.status === 3" class="error">
-            <p><strong>There was an error loading the data.</strong> Either the URL was copied wrong
-              or the session has expired.</p>
-            <p>Please generate another editor session with <code>/lp editor</code>.</p>
+            <p>
+              <strong>Произошла ошибка при загрузке данных плагина...</strong>
+              Ссылка неверна, либо её срок действия уже истёк.
+            </p>
+            <p>Пожалуйста, сгенерируйте новую через <code>/lp verbose</code>.</p>
           </div>
           <template v-if="verboseData.status === 1">
             <p>
               <font-awesome icon="asterisk" :spin="true" />
-              Loading data...
+              Загрузка данных...
             </p>
           </template>
           <template v-if="verboseData.status === 0">
             <router-link to="/verbose/demo">
-              <button class="button demo-button">View Demo</button>
+              <button class="button demo-button">Посмотреть демо</button>
             </router-link>
-            <p>To generate a verbose report, do the following in game or from the console:</p>
+            <p>Чтобы сгенерировать отладочную информацию, используйте одну из команд:</p>
             <ul>
               <li><code>/lp verbose record [filter]</code></li>
-              <li>Perform a series of actions that require permissions</li>
               <li><code>/lp verbose paste</code></li>
-              <li>Follow the URL that is generated</li>
             </ul>
           </template>
         </div>

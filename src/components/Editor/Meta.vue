@@ -1,15 +1,15 @@
 <template>
 <div class="editor-meta">
   <div class="meta-weight" v-if="sessionData.type === 'group'">
-    <strong>Weight: </strong>
+    <strong>Вес группы: </strong>
     <code>{{ groupWeight }}</code>
   </div>
   <div class="meta-parents">
     <div class="add-group">
-      <strong>Parent groups </strong>
+      <strong>Дочерние группы </strong>
       <button
         @click="addingGroup = true"
-        :title="`Add a group to ${session.id}`"
+        :title="`Добавить группу в ${session.id}`"
       >
         +
       </button>
@@ -27,12 +27,12 @@
       <li v-for="parent in parents" :key="`groupParent_${parent}`">
         <code
           @click="handleParentSessionSwitch(parent)"
-          :title="`Go to the ${parent} group`"
+          :title="`Перейти в группу ${parent}`"
         >
           {{ parent }}
           <span
             @click.stop="deleteParent(parent)"
-            :title="`Remove ${parent} as a parent`"
+            :title="`Убрать ${parent} как дочернюю`"
           >
             <font-awesome icon="times" />
           </span>

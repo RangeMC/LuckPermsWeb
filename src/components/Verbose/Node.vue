@@ -24,7 +24,7 @@
         <div class="col-1">
           <table>
             <tr v-if="source.context.length">
-              <td>Context</td>
+              <td>Содержимое</td>
               <td>
                 <code v-for="context in source.context">
                   {{ context.key }}: {{ context.value }}
@@ -32,25 +32,25 @@
               </td>
             </tr>
             <tr>
-              <td>Origin</td>
+              <td>Начало</td>
               <td>
                 <code>{{ source.origin }}</code>
               </td>
             </tr>
             <tr v-if="source.resultInfo">
-              <td>Processor</td>
+              <td>Работник</td>
               <td>
                 <code>{{ source.resultInfo.processorClass }}</code>
               </td>
             </tr>
             <tr v-if="source.resultInfo">
-              <td>Cause</td>
+              <td>Причина</td>
               <td>
                 <code>{{ source.resultInfo.cause }}</code>
               </td>
             </tr>
             <tr>
-              <td>Thread</td>
+              <td>Поток</td>
               <td>
                 <code>{{ source.thread }}</code>
               </td>
@@ -58,7 +58,7 @@
           </table>
         </div>
         <div class="col-2">
-          Trace
+          Логи
           <ul>
             <li v-for="trace in source.trace">
               <code>{{ trace }}</code>

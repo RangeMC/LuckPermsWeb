@@ -2,16 +2,16 @@
   <div class="editor-menu-track">
     <h3>
       <span>
-        <button @click="toggle = !toggle" title="Show/hide track groups">
+        <button @click="toggle = !toggle" title="Показать/скрыть группы треков">
           <font-awesome icon="caret-right" fixed-width :rotation="toggle ? 90 : null" />
         </button>
         <span>{{ track.id }}</span>
       </span>
       <span class="actions">
-        <button @click="editTrack" title="Edit track">
+        <button @click="editTrack" title="Изменить трек">
           <font-awesome icon="edit" fixed-width />
         </button>
-        <button @click="deleteTrack" title="Delete track">
+        <button @click="deleteTrack" title="Удалить трек">
           <font-awesome icon="times" fixed-width />
         </button>
       </span>

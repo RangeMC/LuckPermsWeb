@@ -2,7 +2,7 @@
   <div class="add-node">
     <form class="row" autocomplete="off" @submit.prevent>
       <div class="form-group" v-if="!selectedNodes.length">
-        <label for="permissions">Add permissions</label>
+        <label for="permissions">Добавить разрешения</label>
         <multiselect
           id="permissions"
           v-model="permissions"
@@ -10,8 +10,8 @@
           :multiple="true"
           :taggable="true"
           @tag="onTag"
-          tag-placeholder="Press enter to select"
-          placeholder="Enter permissions or paste many"
+          tag-placeholder="Нажмите ENTER для добавления"
+          placeholder="Введите разрешение или вставьте несколько"
           :close-on-select="false"
         />
       </div>
@@ -20,22 +20,22 @@
         <p>
           <span>{{ selectedNodes.length }}</span>
           selected node{{ selectedNodes.length === 1 ? '' : 's' }}
-          <button @click="deselectNodes" title="Deselect all nodes">
+          <button @click="deselectNodes" title="Снять выделения">
             <font-awesome icon="times" />
           </button>
         </p>
         <div class="buttons">
           <button @click="copyNodes">
             <font-awesome icon="clone" />
-            Copy
+            Копировать
           </button>
           <button @click="moveNodes">
             <font-awesome icon="sign-in-alt" />
-            Move
+            Переместить
           </button>
           <button @click="deleteNodes">
             <font-awesome icon="times" />
-            Delete
+            Удалить
           </button>
         </div>
       </div>
@@ -43,7 +43,7 @@
       <div>
         <div class="form-group">
           <label v-if="!selectedNodes.length">
-            Value
+            Статус
             <button
               type="button"
               @click="value = !value"
@@ -53,14 +53,14 @@
             </button>
           </label>
           <div v-else class="bulk-value">
-            <label>Value</label>
+            <label>Значение</label>
             <div>
               <button
                 type="button"
                 class="code true"
                 :class="{ selected: bulk.value === true }"
                 @click="bulk.value = true"
-                title="Change all values to TRUE"
+                title="Изменить все значения на TRUE"
               >
                 true
               </button>
@@ -69,7 +69,7 @@
                 class="code null"
                 :class="{ selected: bulk.value === null }"
                 @click="bulk.value = null"
-                title="Keep values unchanged"
+                title="Оставить всё как есть"
               >
                 -
               </button>
@@ -87,12 +87,12 @@
         </div>
 
         <div class="form-group">
-          <label for="expiry">Expiry</label>
+          <label for="expiry">Окончание</label>
           <datepicker
             id="expiry"
             name="expiry"
             v-model="expiry"
-            placeholder="never"
+            placeholder="никогда"
             :disabled-dates="{ to: new Date() }"
           />
         </div>
@@ -100,33 +100,33 @@
 
       <div class="form-group contexts">
         <label v-if="!selectedNodes.length">
-          Contexts
+          Контекст
           <button
             type="button"
             class="code"
-            title="Add contexts"
+            title="Добавить контекст"
             @click="context.ui = true"
           >
             <font-awesome icon="plus" />
           </button>
         </label>
         <div class="bulk-contexts" v-else>
-          <label for="bulk_contexts">Contexts</label>
+          <label for="bulk_contexts">Контекст</label>
           <div>
             <button
               id="bulk_contexts_replace"
               :class="{ selected: bulk.replaceContexts }"
               @click="bulk.replaceContexts = !bulk.replaceContexts"
-              title="Replace contexts instead of adding?"
+              title="Заменить контекст перед добавлением?"
             >
               <font-awesome icon="check" />
-              Replace
+              Заменить
             </button>
             <button
               id="bulk_contexts"
               type="button"
               class="code"
-              title="Add contexts"
+              title="Добавить контекст"
               @click="context.ui = true"
             >
               <font-awesome icon="plus" />
@@ -145,24 +145,24 @@
         v-if="!selectedNodes.length"
         type="submit"
         :disabled="permissions.length === 0"
-        title="Add node"
+        title="Добавить узел"
         @click="addNodesToSession"
       >
         <span>
           <font-awesome icon="plus" />
-          Add
+          Добавить
         </span>
       </button>
       <button
         v-else
         type="submit"
         :disabled="!canUpdateNode"
-        title="Update nodes"
+        title="Обновить узлы"
         @click="updateNodes"
       >
         <span>
           <font-awesome icon="edit" />
-          Update
+          Обновить
         </span>
       </button>
     </form>
@@ -227,7 +227,7 @@
         </ul>
         <button @click="addContext">
           <font-awesome icon="plus" />
-          Add context
+          Добавить контекст
         </button>
       </div>
     </transition>

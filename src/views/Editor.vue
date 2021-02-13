@@ -2,18 +2,18 @@
   <main class="editor">
     <div v-if="!sessionId" class="tool-intro">
       <div>
-        <img alt="LuckPerms logo" src="../assets/logo.png">
+        <img alt="RangeMC logo" src="../assets/logo.png">
         <div class="text">
-          <h1>LuckPerms</h1>
-          <p>Web Permissions Editor</p>
+          <h1>RangeMC</h1>
+          <p>Управление правами</p>
           <router-link to="/editor/demo">
-            <button class="button demo-button">View Demo</button>
+            <button class="button demo-button">Посмотреть демо</button>
           </router-link>
-          <p>To start a new editor session, use one of the following commands:</p>
+          <p>Чтобы начать новую сессию, используйте одну из команд:</p>
           <ul>
             <li><code>/lp editor</code></li>
-            <li><code>/lp user &lt;user&gt; editor</code></li>
-            <li><code>/lp group &lt;group&gt; editor</code></li>
+            <li><code>/lp user &lt;никнейм&gt; editor</code></li>
+            <li><code>/lp group &lt;группа&gt; editor</code></li>
           </ul>
         </div>
       </div>
@@ -30,16 +30,16 @@
               <div v-if="!errors.load">
                 <p>
                   <font-awesome icon="asterisk" :spin="true" />
-                  Loading data...
+                  Загружаем данные....
                 </p>
               </div>
 
               <div v-else class="error">
                 <p>
-                  <strong>There was an error loading the data.</strong>
-                  Either the URL was copied wrong or the session has expired.
+                  <strong>Произошла ошибка при загрузке данных плагина...</strong>
+                  Ссылка неверна, либо её срок действия уже истёк.
                 </p>
-                <p>Please generate another editor session with <code>/lp editor</code>.</p>
+                <p>Пожалуйста, сгенерируйте новую через <code>/lp editor</code>.</p>
               </div>
             </div>
           </div>
@@ -71,7 +71,7 @@
           <div class="editor-main">
             <nav>
               <div class="logo">
-                Web Permissions Editor
+                Управление правами
               </div>
               <div class="buttons">
 <!--                <button>-->
@@ -80,14 +80,14 @@
 <!--                <button>-->
 <!--                  <font-awesome icon="redo" />-->
 <!--                </button>-->
-                <button @click="saveData" title="Save and generate code">
+                <button @click="saveData" title="Сохранить и создать команду">
                   <span v-if="saveStatus !== 'saving'">
                     <font-awesome icon="save" fixed-width />
-                    Save
+                    Сохранить
                   </span>
                   <span v-else>
                     <font-awesome icon="sync-alt" fixed-width :spin="true" />
-                    Saving...
+                    Сохраняем...
                   </span>
                 </button>
               </div>
@@ -96,7 +96,7 @@
             <transition name="fade" mode="in-out">
               <div class="editor-no-session" v-if="!currentSession">
                 <font-awesome icon="arrow-left" />
-                <h1>Choose a group or user from the side bar</h1>
+                <h1>Выберите группу или пользователя в боковой панели</h1>
               </div>
             </transition>
 

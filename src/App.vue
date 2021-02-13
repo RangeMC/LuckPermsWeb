@@ -3,16 +3,16 @@
     <nav id="nav">
       <div>
         <router-link to="/" class="logo">
-          <img alt="LuckPerms logo" src="@/assets/logo.png">
-          <span>LuckPerms</span>
+          <img alt="RangeMC Logo" src="@/assets/logo.png">
+          <span>RangeMC</span>
         </router-link>
         <div v-if="!config.selfHosted" class="nav-message">
           <a href="https://bisecthosting.com/luck" target="_blank">
             <img src="@/assets/bisect.svg" alt="Bisect Hosting">
             <span>
-              Proudly sponsored by
+              Плагин выполнен при поддержке
               <strong>BisectHosting</strong><br/>
-              Use code <code>luck</code> for 25% off!
+              Используйте код <code>luck</code> для 25% скидки!
             </span>
           </a>
         </div>
@@ -22,45 +22,45 @@
         <li>
           <router-link to="/">
             <font-awesome icon="home" fixed-width />
-            Home
+            Главная
           </router-link>
         </li>
         <template v-if="!config.selfHosted">
           <li>
             <router-link to="/download">
               <font-awesome icon="arrow-alt-circle-down" fixed-width />
-              Download
+              Скачать
             </router-link>
           </li>
           <li>
             <router-link to="/wiki">
               <font-awesome icon="book" fixed-width />
-              Wiki
+              Вики
             </router-link>
           </li>
         </template>
         <li>
           <span :class="{ 'router-link-active': isToolsRoute, tools: true }">
             <font-awesome icon="tools" fixed-width />
-            Tools
+            Настройки
           </span>
           <ul>
             <li>
               <router-link to="/editor">
                 <font-awesome icon="edit" fixed-width />
-                Editor
+                Управление
               </router-link>
             </li>
             <li>
               <router-link to="/verbose">
                 <font-awesome icon="comment-alt" fixed-width />
-                Verbose
+                Отладка
               </router-link>
             </li>
             <li>
               <router-link to="/treeview">
                 <font-awesome icon="sitemap" fixed-width />
-                Tree
+                Дерево
               </router-link>
             </li>
           </ul>
@@ -131,31 +131,27 @@
 <script>
 export default {
   metaInfo: {
-    titleTemplate: '%s | LuckPerms',
+    titleTemplate: 'RangeMC',
     meta: [
       {
         property: 'og:title',
-        content: 'LuckPerms',
+        content: 'RangeMC',
       },
       {
         property: 'og:description',
-        content: 'Resources, useful links and the latest downloads for LuckPerms',
+        content: 'Управление правами проекта RangeMC',
       },
       {
         property: 'og:type',
         content: 'product',
       },
       {
-        property: 'og:image',
-        content: 'https://luckperms.github.io/assets/logo/720px.png',
-      },
-      {
         property: 'og:url',
-        content: 'https://luckperms.net',
+        content: 'https://perms.rangemc.ovh',
       },
       {
         property: 'og:site_name',
-        content: 'LuckPerms',
+        content: 'RangeMC',
       },
     ],
   },
