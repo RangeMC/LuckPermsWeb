@@ -3,13 +3,9 @@
     <section class="hero">
       <div class="container">
         <div :class="{'logo': true, 'selfhosted': config.selfHosted }">
-<<<<<<< HEAD
-          <img alt="RangeMC logo" src="../assets/logo.png">
-=======
           <img alt="LuckPerms logo" src="../assets/logo.svg">
->>>>>>> dd56ed8e55a4775228a28d6850dc578a0f3f6e62
           <div>
-            <h1>RangeMC</h1>
+            <h1>LuckPerms</h1>
             <p>Управление правами проекта.</p>
           </div>
         </div>
@@ -145,7 +141,7 @@ export default {
   name: 'Home',
 
   metaInfo: {
-    title: 'RangeMC',
+    title: 'LuckPerms',
     titleTemplate: null,
   },
 

@@ -58,17 +58,8 @@
           </table>
         </div>
         <div class="col-2">
-<<<<<<< HEAD
           Логи
-          <ul>
-            <li v-for="trace in source.trace">
-              <code>{{ trace }}</code>
-            </li>
-          </ul>
-=======
-          Trace
           <pre class="code">{{ source.trace.join("\n") }}</pre>
->>>>>>> dd56ed8e55a4775228a28d6850dc578a0f3f6e62
         </div>
       </div>
     </transition>

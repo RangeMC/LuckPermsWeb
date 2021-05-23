@@ -3,11 +3,11 @@
     <nav id="nav">
       <div>
         <router-link to="/" class="logo">
-          <img alt="RangeMC Logo" src="@/assets/logo.png">
-          <span>RangeMC</span>
+          <img alt="LuckPerms Logo" src="@/assets/logo.png">
+          <span>LuckPerms</span>
         </router-link>
         <div v-if="!config.selfHosted" class="nav-message">
-          <a href="https://bisecthosting.com/luck" target="_blank">
+          <a href="https://bisecthosting.com/luck" target="_blank"></a>
             <img src="@/assets/bisect.svg" alt="Bisect Hosting">
             <span>
               Плагин выполнен при поддержке
@@ -126,15 +126,15 @@
 <script>
 export default {
   metaInfo: {
-    titleTemplate: 'RangeMC',
+    titleTemplate: 'LuckPerms',
     meta: [
       {
         property: 'og:title',
-        content: 'RangeMC',
+        content: 'LuckPerms',
       },
       {
         property: 'og:description',
-        content: 'Управление правами проекта RangeMC',
+        content: 'Управление правами проекта LuckPerms',
       },
       {
         property: 'og:type',
@@ -142,11 +142,11 @@ export default {
       },
       {
         property: 'og:url',
-        content: 'https://perms.rangemc.ovh',
+        content: 'https://perms.LuckPerms.ovh',
       },
       {
         property: 'og:site_name',
-        content: 'RangeMC',
+        content: 'LuckPerms',
       },
     ],
   },

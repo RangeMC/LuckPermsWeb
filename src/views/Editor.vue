@@ -2,13 +2,9 @@
   <main class="editor">
     <div v-if="!sessionId" class="tool-intro">
       <div>
-<<<<<<< HEAD
-        <img alt="RangeMC logo" src="../assets/logo.png">
-=======
         <img alt="LuckPerms logo" src="../assets/logo.svg">
->>>>>>> dd56ed8e55a4775228a28d6850dc578a0f3f6e62
         <div class="text">
-          <h1>RangeMC</h1>
+          <h1>LuckPerms</h1>
           <p>Управление правами</p>
           <router-link to="/editor/demo">
             <button class="button demo-button">Посмотреть демо</button>
@@ -73,11 +69,7 @@
           <div class="editor-main">
             <nav>
               <div class="logo">
-<<<<<<< HEAD
-                Управление правами
-=======
-                <h1>Web Permissions Editor</h1>
->>>>>>> dd56ed8e55a4775228a28d6850dc578a0f3f6e62
+                <h1>Управление правами</h1>
               </div>
               <div class="buttons">
                 <div class="search">

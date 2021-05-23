@@ -41,14 +41,8 @@
       @click="expiry.edit = true"
       title="Выберите дату окончания"
     >
-<<<<<<< HEAD
-      <code v-if="source.expiry">{{ source.expiry | moment('from') }}</code>
-      <code v-else disabled>никогда</code>
-
-      <button v-if="source.expiry" class="delete" @click.stop="deleteExpiry()" title="Убрать окончание">
-=======
       <code v-if="source.expiry">{{ relativeExpiry }}</code>
-      <code v-else disabled>never</code>
+      <code v-else disabled>никогда</code>
 
       <button
         v-if="source.expiry"
@@ -56,7 +50,6 @@
         @click.stop="deleteExpiry()"
         title="Delete expiry"
       >
->>>>>>> dd56ed8e55a4775228a28d6850dc578a0f3f6e62
         <font-awesome icon="times" />
       </button>
     </div>

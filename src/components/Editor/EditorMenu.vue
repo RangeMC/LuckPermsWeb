@@ -3,11 +3,7 @@
     <div class="filter">
       <input
         type="text"
-<<<<<<< HEAD
         placeholder="Поиск"
-=======
-        placeholder="Filter groups/users"
->>>>>>> dd56ed8e55a4775228a28d6850dc578a0f3f6e62
         v-model="filter"
         title="Фильтровать треки, группы и игроков."
       >
@@ -18,27 +14,15 @@
 
     <div class="sessions">
       <div class="tracks">
-<<<<<<< HEAD
-        <h2>
-          <button @click="toggle.tracks = !toggle.tracks" title="Показать/скрыть треки">
-            <font-awesome icon="caret-right" fixed-width :rotation="toggle.tracks ? 90 : null" />
-          </button>
-          <span>
-          Треки
-          <small>({{ filteredTracks.length }})</small>
-        </span>
-          <button @click="createTrack" title="Добавить трек">
-=======
         <h2 @click="toggle.tracks = !toggle.tracks">
-          <button title="Show/hide tracks">
+          <button title="Показать/скрыть треки">
             <font-awesome icon="caret-right" fixed-width :rotation="toggle.tracks ? 90 : null" />
           </button>
           <span>
             Tracks
             <small>({{ filteredTracks.length }})</small>
           </span>
-          <button @click.stop="createTrack" title="Add a track">
->>>>>>> dd56ed8e55a4775228a28d6850dc578a0f3f6e62
+          <button @click.stop="createTrack" title="Добавить трек">
             <font-awesome icon="plus-circle" fixed-width />
           </button>
         </h2>
@@ -61,24 +45,15 @@
       </div>
 
       <div class="groups" v-if="filteredGroups.length">
-<<<<<<< HEAD
-        <h2>
-          <button @click="toggle.groups = !toggle.groups" title="Показать/скрыть группы">
-=======
         <h2 @click="toggle.groups = !toggle.groups">
-          <button title="Show/hide groups">
->>>>>>> dd56ed8e55a4775228a28d6850dc578a0f3f6e62
+          <button title="Показать/скрыть группы">
             <font-awesome icon="caret-right" fixed-width :rotation="toggle.groups ? 90 : null" />
           </button>
           <span>
           Группы
           <small>({{ filteredGroups.length }})</small>
         </span>
-<<<<<<< HEAD
-          <button @click="createGroup" title="Добавить группу">
-=======
-          <button @click.stop="createGroup" title="Add a group">
->>>>>>> dd56ed8e55a4775228a28d6850dc578a0f3f6e62
+          <button @click.stop="createGroup" title="Добавить группу">
             <font-awesome icon="plus-circle" fixed-width />
           </button>
         </h2>
@@ -105,13 +80,8 @@
       </div>
 
       <div class="users" v-if="filteredUsers.length">
-<<<<<<< HEAD
-        <h2>
-          <button @click="toggle.users = !toggle.users" title="Показать/скрыть игроков">
-=======
         <h2 @click="toggle.users = !toggle.users">
-          <button title="Show/hide users">
->>>>>>> dd56ed8e55a4775228a28d6850dc578a0f3f6e62
+          <button title="Показать/скрыть игроков">
             <font-awesome icon="caret-right" fixed-width :rotation="toggle.users ? 90 : null" />
           </button>
           <span>
