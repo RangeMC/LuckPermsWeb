@@ -108,9 +108,9 @@
         <ul>
           <li>
             <font-awesome icon="code-branch" fixed-width />
-            <a href="https://github.com/lucko/LuckPermsWeb" target="_blank">LuckPermsWeb</a>
+            <a href="https://github.com/alexeylesin/perms" target="_blank">perms</a>
             @
-            <a :href="'https://github.com/lucko/LuckPermsWeb/commit/' + commitHash" target="_blank">{{ commitHash }}</a>
+            <a :href="'https://github.com/alexeylesin/perms/commit/' + commitHash" target="_blank">{{ commitHash }}</a>
           </li>
           <li>
             <router-link to="/wiki/Credits">

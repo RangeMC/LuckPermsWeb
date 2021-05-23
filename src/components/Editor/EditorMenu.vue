@@ -19,7 +19,7 @@
             <font-awesome icon="caret-right" fixed-width :rotation="toggle.tracks ? 90 : null" />
           </button>
           <span>
-            Tracks
+            Треки
             <small>({{ filteredTracks.length }})</small>
           </span>
           <button @click.stop="createTrack" title="Добавить трек">
